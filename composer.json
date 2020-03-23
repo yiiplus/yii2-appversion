@@ -1,0 +1,22 @@
+{
+    "name": "yiiplus/yii2-appversion",
+    "description": "易加脚手架里面的 app版本控制",
+    "type": "yii2-extension",
+    "keywords": ["yii2","extension"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "ciroy",
+            "email": "chensichen@mocaapp.cn"
+        }
+    ],
+    "require": {
+        "phpunit/phpunit": "^8.5",
+        "mockery/mockery": "^1.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "yiiplus\\appversion\\": ""
+        }
+    }
+}
