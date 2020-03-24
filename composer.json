@@ -10,6 +10,7 @@
             "email": "chensichen@mocaapp.cn"
         }
     ],
+    "minimum-stability": "dev",
     "require": {
         "phpunit/phpunit": "^8.5",
         "mockery/mockery": "^1.3"
