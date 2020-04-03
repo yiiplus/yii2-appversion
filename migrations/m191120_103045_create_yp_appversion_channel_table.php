@@ -30,8 +30,8 @@ class m191120_103045_create_yp_appversion_channel_table extends Migration
             '{{%yp_appversion_channel}}',
             ['id', 'name', 'platform', 'code', 'status'],
             [
-                [1, '苹果商店', 1, 'official', 1],
-                [2, '安卓官方包', 2, 'official', 1],
+                [1, '苹果商店', 0, 'official', 1],
+                [2, '安卓官方包', 1, 'official', 1],
             ]
         );
     }
