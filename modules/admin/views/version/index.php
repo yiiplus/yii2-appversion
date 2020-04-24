@@ -66,6 +66,9 @@ if (!empty(Yii::$app->session->getFlash('success'))) {
             <div class="col-sm-12">
                 <?= GridView::widget([
                     'dataProvider' => $dataProvider,
+                    'options' => [
+                        'style'=>'white-space: pre-line;'
+                    ],
                     'columns' => [
                         ['class' => 'yii\grid\SerialColumn'],
                         [
