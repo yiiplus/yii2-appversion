@@ -78,7 +78,7 @@ if (!empty(Yii::$app->session->getFlash('success'))) {
                             [
                                 'attribute'=>'version_id',
                                 'value' => function ($model) {
-                                    return $model->version->name ?? null;
+                                    return Version::nameIntToStr($model->version->name ?? null);
                                 }
                             ],
                             [
