@@ -97,7 +97,8 @@ class ChannelVersionController extends Controller
                     return $this->redirect(Yii::$app->request->referrer);
                 }
 
-                $path = Yii::$app->cos->cos_url . Yii::$app->storage->save($file[0], ChannelVersion::UPLOAD_APK_DIR);
+                $cos_url = Yii::$app->params['yiiplus.appversion.configs']['cos_url'] ?? Yii::$app->cos->cos_url;
+                $path = $cos_url . Yii::$app->storage->save($file[0], ChannelVersion::UPLOAD_APK_DIR);
                 if ($path) {
                     $model->url = $path;
                     $model->size = $file[0]->size ?? 0;
@@ -144,8 +145,8 @@ class ChannelVersionController extends Controller
             unset($model->url);
 
             if ($model->version->platform == App::ANDROID && ($file = UploadedFile::getInstances($model, 'url'))) {
-                $path = Yii::$app->cos->cos_url . Yii::$app->storage->save($file[0], ChannelVersion::UPLOAD_APK_DIR);
-
+                $cos_url = Yii::$app->params['yiiplus.appversion.configs']['cos_url'] ?? Yii::$app->cos->cos_url;
+                $path = $cos_url . Yii::$app->storage->save($file[0], ChannelVersion::UPLOAD_APK_DIR);
                 $model->url = $path;
             }
             $model->save();
