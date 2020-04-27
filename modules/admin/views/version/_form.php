@@ -46,7 +46,7 @@ use yiiplus\appversion\modules\admin\models\Version;
 </a>
 EOF;
     ?>
-    <?= $form->field($model, 'type')->dropDownList(Version::UPDATE_TYPE, ['prompt'=>'选择更新类型'])->label('更新类型' . $html) ?>
+    <?= $form->field($model, 'type')->dropDownList(Version::instance()->getUpdateType($model->app_id), ['prompt'=>'选择更新类型'])->label('更新类型' . $html) ?>
     <div class="collapse" id="updateTypeHelp">
         <div class="well">
             <div class="alert bg-info" role="alert">对于 iOS AppStore 的更新来说：静默更新、可忽略更新、静默可忽略更新都只弹一次提示更新的对话框</div>

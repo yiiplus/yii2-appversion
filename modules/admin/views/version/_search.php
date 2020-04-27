@@ -40,7 +40,7 @@ use yiiplus\appversion\modules\admin\models\Version;
             <?= $form->field($model, 'app_id')->dropDownList(App::getAppOptions()) ?>
         </div>
         <div class="col-sm-3">
-            <?= $form->field($model, 'type')->dropDownList(Version::UPDATE_TYPE, ['prompt'=>'选择更新类型']) ?>
+            <?= $form->field($model, 'type')->dropDownList(Version::instance()->getUpdateType($model->app_id), ['prompt'=>'选择更新类型']) ?>
         </div>
         <div class="col-sm-3">
             <?= $form->field($model, 'platform')->dropDownList(App::PLATFORM_OPTIONS, ['prompt'=>'选择平台']) ?>

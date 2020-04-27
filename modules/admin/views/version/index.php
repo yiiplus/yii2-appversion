@@ -92,7 +92,7 @@ if (!empty(Yii::$app->session->getFlash('success'))) {
                         [
                             'attribute'=>'type',
                             'value' => function ($model) {
-                                return Version::UPDATE_TYPE[$model->type] ?? null;
+                                return Version::instance()->getUpdateType($model->app_id)[$model->type] ?? null;
                             }
                         ],
                         [

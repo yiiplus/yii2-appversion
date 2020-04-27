@@ -52,11 +52,26 @@ class Version extends ActiveRecord
      * 更新类型
      */
     const UPDATE_TYPE = [
-        1 => '一般更新',
-        2 => '强制更新',
-        3 => '静默更新',
-        4 => '可忽略更新',
-        5 => '静默可忽略更新',
+        1 => [
+            'title' => '一般更新',
+            'desc' => '每次APP启动都会弹出更新提示，但是更新对话框可以点击关闭，然后用户可以继续使用。 用户下次再次启动APP，更新对话框依然弹出来提示用户更新，用户依然可以关闭继续使用。'
+        ],
+        2 => [
+            'title' => '强制更新',
+            'desc' => '顾名思义，弹出更新后就必须更新，否则无法进行任何操作，退出应用再进来依然是这样。'
+        ],
+        3 => [
+            'title' => '静默更新',
+            'desc' => 'APP检测到更新信息后，判断如果是WI-FI情况下，会在后台下载好Apk文件，下次用户再启动APP的时候会提示用户直接安装新版APP。 用户可以关闭更新提示框继续使用，但是下次再打开依然会提示用户安装新版APP。'
+        ],
+        4 => [
+            'title' => '可忽略更新',
+            'desc' => '顾名思义，用户点击忽略后，不在对该版本进行提示，直到下一次版本更新才会重新提示版本更新。'
+        ],
+        5 => [
+            'title' => '静默可忽略更新',
+            'desc' => '检测到新版本后先下载，下载完成之后弹更新对话框，随后逻辑同可忽略更新。'
+        ]
     ];
 
     /**
@@ -293,6 +308,21 @@ class Version extends ActiveRecord
         } else {
             return false;
         }
+    }
+    
+    public function getUpdateType($appId, $item ='title')
+    {
+        $updateType = Yii::$app->params['yiiplus.appversion.configs']['update_type'][$appId] ?? self::UPDATE_TYPE;
+        if ($item) {
+            $arr = [];
+            foreach ($updateType as $key => $value) {
+                if (isset($value[$item])) {
+                    $arr[$key] = $value[$item];
+                }
+            }
+            return $arr;
+        } 
+        return $updateType;
     }
 
     /**
