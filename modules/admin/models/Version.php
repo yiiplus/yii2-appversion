@@ -312,7 +312,7 @@ class Version extends ActiveRecord
     
     public function getUpdateType($appId, $item ='title')
     {
-        $updateType = Yii::$app->params['yiiplus.appversion.configs']['update_type'][$appId] ?? self::UPDATE_TYPE;
+        $updateType = Yii::$app->params['yiiplus_appversion_configs']['update_type'][$appId] ?? self::UPDATE_TYPE;
         if ($item) {
             $arr = [];
             foreach ($updateType as $key => $value) {
