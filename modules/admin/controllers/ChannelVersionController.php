@@ -76,6 +76,10 @@ class ChannelVersionController extends Controller
      */
     public function actionCreate()
     {
+
+        // php.ini 配置
+        set_time_limit(600);
+
         $versionId = Yii::$app->request->get('version_id');
         $version = Version::findOne($versionId);
         if (!$version) {

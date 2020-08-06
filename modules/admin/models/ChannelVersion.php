@@ -161,7 +161,7 @@ class ChannelVersion extends ActiveRecord
     public function getVersionInfo($model, $scopeIp = false)
     {
         // 查询数据库
-        $query =  Version::find()
+        $query = Version::find()
             ->joinWith(['channelVersions', 'channels'], false)
             ->select([
                 Version::tableName() . '.*',
@@ -185,8 +185,18 @@ class ChannelVersion extends ActiveRecord
             $query->andWhere([Version::tableName() . '.scope' => Version::SCOPE_ALL]);
         }
         $query->andWhere(['<=', 'min_name', $model->name]);
-        $query->orderBy(['name' => SORT_DESC]);
-        return $query->asArray()->one();
+        $query->orderBy([Version::tableName() . '.name' => SORT_DESC]);
+        $version = $query->asArray()->one();
+
+        // 查询强更信息
+        if ($version) {
+            $query->andWhere(['>', Version::tableName() . '.name', $model->name])
+                ->andWhere([Version::tableName() . '.type' => Version::UPDATE_TYPE_FORCE]);
+            if ($query->exists()) {
+                $version['type'] = (string)Version::UPDATE_TYPE_FORCE;
+            }
+        }
+        return $version;
     }
 
     /**

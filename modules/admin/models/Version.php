@@ -56,7 +56,7 @@ class Version extends ActiveRecord
             'title' => '一般更新',
             'desc' => '每次APP启动都会弹出更新提示，但是更新对话框可以点击关闭，然后用户可以继续使用。 用户下次再次启动APP，更新对话框依然弹出来提示用户更新，用户依然可以关闭继续使用。'
         ],
-        2 => [
+        self::UPDATE_TYPE_FORCE => [
             'title' => '强制更新',
             'desc' => '顾名思义，弹出更新后就必须更新，否则无法进行任何操作，退出应用再进来依然是这样。'
         ],
@@ -73,6 +73,11 @@ class Version extends ActiveRecord
             'desc' => '检测到新版本后先下载，下载完成之后弹更新对话框，随后逻辑同可忽略更新。'
         ]
     ];
+
+    /**
+     * 强制更新
+     */
+    const UPDATE_TYPE_FORCE = 2;
 
     /**
      * 更新范围
@@ -245,9 +250,9 @@ class Version extends ActiveRecord
     {
         $ret = preg_match('/^[1][0-9]{9}$/', $name);
         if ($ret) {
-            $sub = $name%1000;
-            $minor = $name/1000%1000;
-            $major = $name/1000000%1000;
+            $sub = $name % 1000;
+            $minor = $name / 1000 % 1000;
+            $major = $name / 1000000 % 1000;
             return $major . "." . $minor . "." . $sub;
         }
         return false;
@@ -309,7 +314,7 @@ class Version extends ActiveRecord
             return false;
         }
     }
-    
+
     public function getUpdateType($appId, $item ='title')
     {
         $updateType = Yii::$app->params['yiiplus_appversion_configs']['update_type'][$appId] ?? self::UPDATE_TYPE;
@@ -321,7 +326,7 @@ class Version extends ActiveRecord
                 }
             }
             return $arr;
-        } 
+        }
         return $updateType;
     }
 
